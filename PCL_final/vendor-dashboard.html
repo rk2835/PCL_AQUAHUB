@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Dashboard - AquaHub</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="vendor-dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="login.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <img src="assets/pcl logo.jpg" alt="AquaHub PCL" class="logo-img">
+                    <span class="logo-text">AquaHub</span>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="#orders" class="nav-link">Orders</a></li>
+                    <li class="nav-item"><a href="#services" class="nav-link">My Services</a></li>
+                    <li class="nav-item"><a href="#profile" class="nav-link">Profile</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <div class="user-info">
+                        <span class="user-name" id="userName">Loading...</span>
+                        <span class="user-type">Vendor</span>
+                    </div>
+                    <a href="tel:+918431341723" class="call-btn">CALL NOW</a>
+                    <button class="logout-btn" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Welcome Section -->
+            <section class="welcome-section">
+                <h1>Welcome to Your Vendor Dashboard, <span id="welcomeName">Vendor</span>!</h1>
+                <p>Manage your water delivery services and grow your business with AquaHub</p>
+            </section>
+
+            <!-- Quick Stats -->
+            <section class="stats-section">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>24</h3>
+                            <p>Active Orders</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>156</h3>
+                            <p>Total Deliveries</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-rupee-sign"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>₹45,230</h3>
+                            <p>Monthly Revenue</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>4.8</h3>
+                            <p>Average Rating</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Actions -->
+            <section class="actions-section">
+                <h2>Quick Actions</h2>
+                <div class="action-buttons">
+                    <button class="action-btn" onclick="addNewService()">
+                        <i class="fas fa-plus"></i>
+                        Add New Service
+                    </button>
+                    <button class="action-btn" onclick="viewOrders()">
+                        <i class="fas fa-list"></i>
+                        View All Orders
+                    </button>
+                    <button class="action-btn" onclick="updateProfile()">
+                        <i class="fas fa-user-edit"></i>
+                        Update Profile
+                    </button>
+                    <button class="action-btn" onclick="viewReports()">
+                        <i class="fas fa-chart-bar"></i>
+                        View Reports
+                    </button>
+                </div>
+            </section>
+
+            <!-- Recent Orders -->
+            <section class="orders-section">
+                <h2>Recent Orders</h2>
+                <div class="orders-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Service</th>
+                                <th>Delivery Date</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#AQH12345</td>
+                                <td>John Doe</td>
+                                <td>Medium Tanker (4000L)</td>
+                                <td>Aug 20, 2025</td>
+                                <td>₹650</td>
+                                <td><span class="status pending">Pending</span></td>
+                                <td>
+                                    <button class="btn-small accept" onclick="acceptOrder('AQH12345')">Accept</button>
+                                    <button class="btn-small decline" onclick="declineOrder('AQH12345')">Decline</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#AQH12346</td>
+                                <td>Jane Smith</td>
+                                <td>Small Tanker (1500L)</td>
+                                <td>Aug 19, 2025</td>
+                                <td>₹350</td>
+                                <td><span class="status confirmed">Confirmed</span></td>
+                                <td>
+                                    <button class="btn-small track" onclick="trackOrder('AQH12346')">Track</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#AQH12347</td>
+                                <td>Mike Johnson</td>
+                                <td>Large Tanker (8000L)</td>
+                                <td>Aug 18, 2025</td>
+                                <td>₹1200</td>
+                                <td><span class="status delivered">Delivered</span></td>
+                                <td>
+                                    <button class="btn-small view" onclick="viewOrder('AQH12347')">View</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Services Management -->
+            <section class="services-section">
+                <h2>Your Services</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-header">
+                            <h3>Small Tanker Service</h3>
+                            <div class="service-status active">Active</div>
+                        </div>
+                        <div class="service-details">
+                            <p><strong>Capacity:</strong> 1000-2000L</p>
+                            <p><strong>Price:</strong> ₹350 per delivery</p>
+                            <p><strong>Coverage:</strong> Bangalore North</p>
+                            <p><strong>Water Type:</strong> Drinking Water</p>
+                        </div>
+                        <div class="service-actions">
+                            <button class="btn-edit" onclick="editService('small')">Edit</button>
+                            <button class="btn-delete" onclick="deleteService('small')">Delete</button>
+                        </div>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-header">
+                            <h3>Medium Tanker Service</h3>
+                            <div class="service-status active">Active</div>
+                        </div>
+                        <div class="service-details">
+                            <p><strong>Capacity:</strong> 3000-5000L</p>
+                            <p><strong>Price:</strong> ₹650 per delivery</p>
+                            <p><strong>Coverage:</strong> Bangalore Central</p>
+                            <p><strong>Water Type:</strong> Multi-Purpose</p>
+                        </div>
+                        <div class="service-actions">
+                            <button class="btn-edit" onclick="editService('medium')">Edit</button>
+                            <button class="btn-delete" onclick="deleteService('medium')">Delete</button>
+                        </div>
+                    </div>
+
+                    <div class="service-card add-service">
+                        <div class="add-service-content" onclick="addNewService()">
+                            <i class="fas fa-plus"></i>
+                            <h3>Add New Service</h3>
+                            <p>Expand your offerings</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Add Service Modal -->
+    <div id="serviceModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Add New Service</h2>
+            <form id="serviceForm">
+                <div class="form-group">
+                    <label for="serviceName">Service Name:</label>
+                    <input type="text" id="serviceName" required>
+                </div>
+                <div class="form-group">
+                    <label for="tankerSize">Tanker Size:</label>
+                    <select id="tankerSize" required>
+                        <option value="">Select Size</option>
+                        <option value="small">Small (1000-2000L)</option>
+                        <option value="medium">Medium (3000-5000L)</option>
+                        <option value="large">Large (6000-10000L)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="waterType">Water Type:</label>
+                    <select id="waterType" required>
+                        <option value="">Select Type</option>
+                        <option value="drinking">Drinking Water</option>
+                        <option value="construction">Construction Water</option>
+                        <option value="industrial">Industrial Water</option>
+                        <option value="irrigation">Irrigation Water</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="servicePrice">Price per Delivery (₹):</label>
+                    <input type="number" id="servicePrice" required min="100">
+                </div>
+                <div class="form-group">
+                    <label for="coverageArea">Coverage Area:</label>
+                    <input type="text" id="coverageArea" required placeholder="e.g., Bangalore North, South Delhi">
+                </div>
+                <div class="form-group">
+                    <label for="availability">Availability:</label>
+                    <select id="availability" required>
+                        <option value="24/7">24/7</option>
+                        <option value="business_hours">Business Hours Only</option>
+                        <option value="weekdays">Weekdays Only</option>
+                    </select>
+                </div>
+                <div class="modal-buttons">
+                    <button type="button" class="cancel-btn" onclick="closeServiceModal()">Cancel</button>
+                    <button type="submit" class="confirm-btn">Add Service</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>SUPPORT</h3>
+                    <div class="footer-about">
+                        <h4>About Us</h4>
+                        <p>AquaHub aims to provide on-demand water tanker supply to water scarce areas in bangalore. With transparent pricing, quality driver network and fresh-clean water as the fundamentals of our company.</p>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/AquaHubIndia"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/aquahub.india/"><i class="fab fa-instagram"></i></a>
+                        <a href="https://in.linkedin.com/company/aquahub"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Navigate</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="#orders">Orders</a></li>
+                        <li><a href="#services">My Services</a></li>
+                        <li><a href="#profile">Profile</a></li>
+                        <li><a href="tel:+918431341723">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="#">FAQ's</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Our Journey</h3>
+                    <div class="instagram-feed">
+                        <div class="insta-post"></div>
+                        <div class="insta-post"></div>
+                        <div class="insta-post"></div>
+                        <div class="insta-post"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; AquaHub. All rights reserved</p>
+                    <p><a href="http://wodo.agency/">Designed by WODO</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Check user authentication and access
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!checkUserAccess('vendor')) {
+                return;
+            }
+            
+            // Load user information
+            const currentUser = getCurrentUser();
+            if (currentUser) {
+                document.getElementById('userName').textContent = currentUser.name;
+                document.getElementById('welcomeName').textContent = currentUser.name;
+            }
+        });
+    </script>
+    <script src="vendor-dashboard.js"></script>
+</body>
+</html>
