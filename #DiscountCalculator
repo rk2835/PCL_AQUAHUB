@@ -1,0 +1,56 @@
+#Calculates discount 
+
+menu = {
+    "Shirts":300,"Pants":450    #Items for sale 
+}
+
+order = {} #Customer order goes here 
+
+#Display menu
+
+print(menu)
+
+#Take order
+
+while True:
+    item = input("What would you like to buy ? Please Select from the list, type done if you finished")
+    if item == 'done':  #If user types done , the program stops 
+        break
+    if item not in menu: #If user types an option not in menu 
+        print("Item is currently unavailable, please select from the above options ")
+
+    quantity = int(input("How many would you like to order"))   
+    if quantity == 0:
+        print("Number must be graeter than zero")
+        continue
+
+    order[item] = order.get(item,0) + quantity 
+
+    #orders[item] saves your order in 'orders'
+    #orders.get(item,0) fetches the items and else returns zero as default value 
+    # '+quantity' adds the quantity
+
+    #Calculate total
+
+    total = sum(menu[item]* quantity for item,quantity in order.items())
+    print("Total before discount : ",total)
+
+    #Discount values 
+    discount_shirt = 10/100
+    discount_pant = 15/100
+
+    if item.lower() == "shirts":
+        discount = 0.10 * subtotal  # 10% discount on shirts
+    elif item.lower() == "pants":
+        discount = 0.15 * subtotal  # 15% discount on pants
+    else:
+        discount = 0                # No discount for other items
+
+    final_price = subtotal - discount  # Apply the discount
+    total += final_price               # Add this item's final price to the total
+
+    # Print a breakdown for this item
+    print(f"{item} x {qty} = ₹{subtotal:.2f} - ₹{discount:.2f} discount = ₹{final_price:.2f}")
+
+# Print the final total after all discounts
+print(f"\nTotal Bill After Discounts: ₹{total:.2f}")
