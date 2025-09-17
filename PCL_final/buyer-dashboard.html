@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard - AquaHub</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="buyer-dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="login.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="index.html" class="logo">
+                    <img src="assets/pcl logo.jpg" alt="AquaHub PCL" class="logo-img">
+                    <span class="logo-text">AquaHub</span>
+                </a>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="#orders" class="nav-link">My Orders</a></li>
+                    <li class="nav-item"><a href="#profile" class="nav-link">Profile</a></li>
+                    <li class="nav-item"><a href="#support" class="nav-link">Support</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <div class="user-info">
+                        <span class="user-name" id="userName">Loading...</span>
+                        <span class="user-type">Customer</span>
+                    </div>
+                    <a href="tel:+918431341723" class="call-btn">CALL NOW</a>
+                    <button class="logout-btn" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Welcome Section -->
+            <section class="welcome-section">
+                <h1>Welcome to Your Water Dashboard, <span id="welcomeName">Customer</span>!</h1>
+                <p>Select the perfect water tanker for your needs from our trusted vendors</p>
+            </section>
+
+            <!-- Filter Section -->
+            <section class="filter-section">
+                <div class="filter-container">
+                    <div class="filter-group">
+                        <label for="location">Delivery Location:</label>
+                        <select id="location">
+                            <option value="">Select Location</option>
+                            <option value="bangalore">Bangalore</option>
+                            <option value="mumbai">Mumbai</option>
+                            <option value="delhi">Delhi</option>
+                            <option value="chennai">Chennai</option>
+                            <option value="hyderabad">Hyderabad</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="water-type">Water Type:</label>
+                        <select id="water-type">
+                            <option value="">All Types</option>
+                            <option value="drinking">Drinking Water</option>
+                            <option value="construction">Construction Water</option>
+                            <option value="industrial">Industrial Water</option>
+                            <option value="irrigation">Irrigation Water</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="price-range">Price Range:</label>
+                        <select id="price-range">
+                            <option value="">Any Price</option>
+                            <option value="0-500">₹0 - ₹500</option>
+                            <option value="500-1000">₹500 - ₹1000</option>
+                            <option value="1000-2000">₹1000 - ₹2000</option>
+                            <option value="2000+">₹2000+</option>
+                        </select>
+                    </div>
+                    <button class="filter-btn" onclick="applyFilters()">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                </div>
+            </section>
+
+            <!-- Tanker Selection Section -->
+            <section class="tanker-selection">
+                <h2>Available Water Tankers</h2>
+                
+                <!-- Small Tankers -->
+                <div class="tanker-category">
+                    <h3><i class="fas fa-truck"></i> Small Tankers (1000-2000 Liters)</h3>
+                    <div class="tanker-grid">
+                        <div class="tanker-card" data-size="small" data-vendor="AquaSupply Co" data-price="350">
+                            <div class="tanker-image">
+                                <img src="assets/small 1.avif" alt="Small Water Tanker" loading="lazy">
+                                <div class="size-badge">1500L</div>
+                            </div>
+                            <div class="tanker-info">
+                                <h4>AquaSupply Co</h4>
+                                <p class="vendor-rating">
+                                    <span class="stars">★★★★☆</span>
+                                    <span class="rating-text">4.2 (156 reviews)</span>
+                                </p>
+                                <div class="tanker-details">
+                                    <p><i class="fas fa-tint"></i> Drinking Water Quality</p>
+                                    <p><i class="fas fa-clock"></i> 2-3 Hours Delivery</p>
+                                    <p><i class="fas fa-map-marker-alt"></i> Bangalore, Whitefield</p>
+                                </div>
+                                <div class="price-section">
+                                    <span class="price">₹350</span>
+                                    <span class="price-unit">per tanker</span>
+                                </div>
+                                <button class="select-btn" onclick="selectTanker('small', 'AquaSupply Co', 350, 1500)">
+                                    Select This Tanker
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="tanker-card" data-size="small" data-vendor="Pure Water Systems" data-price="320">
+                            <div class="tanker-image">
+                                <img src="assets/small 2.webp" alt="Small Water Tanker" loading="lazy">
+                                <div class="size-badge">1200L</div>
+                            </div>
+                            <div class="tanker-info">
+                                <h4>Pure Water Systems</h4>
+                                <p class="vendor-rating">
+                                    <span class="stars">★★★★★</span>
+                                    <span class="rating-text">4.8 (203 reviews)</span>
+                                </p>
+                                <div class="tanker-details">
+                                    <p><i class="fas fa-tint"></i> RO Purified Water</p>
+                                    <p><i class="fas fa-clock"></i> 1-2 Hours Delivery</p>
+                                    <p><i class="fas fa-map-marker-alt"></i> Bangalore, Koramangala</p>
+                                </div>
+                                <div class="price-section">
+                                    <span class="price">₹320</span>
+                                    <span class="price-unit">per tanker</span>
+                                </div>
+                                <button class="select-btn" onclick="selectTanker('small', 'Pure Water Systems', 320, 1200)">
+                                    Select This Tanker
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Medium Tankers -->
+                <div class="tanker-category">
+                    <h3><i class="fas fa-truck"></i> Medium Tankers (3000-5000 Liters)</h3>
+                    <div class="tanker-grid">
+                        <div class="tanker-card" data-size="medium" data-vendor="HydroFlow Services" data-price="650">
+                            <div class="tanker-image">
+                                <img src="assets/medi 1.jpg" alt="Medium Water Tanker" loading="lazy">
+                                <div class="size-badge">4000L</div>
+                            </div>
+                            <div class="tanker-info">
+                                <h4>HydroFlow Services</h4>
+                                <p class="vendor-rating">
+                                    <span class="stars">★★★★☆</span>
+                                    <span class="rating-text">4.5 (89 reviews)</span>
+                                </p>
+                                <div class="tanker-details">
+                                    <p><i class="fas fa-tint"></i> Multi-Purpose Water</p>
+                                    <p><i class="fas fa-clock"></i> 3-4 Hours Delivery</p>
+                                    <p><i class="fas fa-map-marker-alt"></i> Bangalore, Electronic City</p>
+                                </div>
+                                <div class="price-section">
+                                    <span class="price">₹650</span>
+                                    <span class="price-unit">per tanker</span>
+                                </div>
+                                <button class="select-btn" onclick="selectTanker('medium', 'HydroFlow Services', 650, 4000)">
+                                    Select This Tanker
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="tanker-card" data-size="medium" data-vendor="ClearWater Express" data-price="720">
+                            <div class="tanker-image">
+                                <img src="assets/med 2.jpg" alt="Medium Water Tanker" loading="lazy">
+                                <div class="size-badge">3500L</div>
+                            </div>
+                            <div class="tanker-info">
+                                <h4>ClearWater Express</h4>
+                                <p class="vendor-rating">
+                                    <span class="stars">★★★★★</span>
+                                    <span class="rating-text">4.7 (142 reviews)</span>
+                                </p>
+                                <div class="tanker-details">
+                                    <p><i class="fas fa-tint"></i> Premium Drinking Water</p>
+                                    <p><i class="fas fa-clock"></i> 2-3 Hours Delivery</p>
+                                    <p><i class="fas fa-map-marker-alt"></i> Bangalore, Indiranagar</p>
+                                </div>
+                                <div class="price-section">
+                                    <span class="price">₹720</span>
+                                    <span class="price-unit">per tanker</span>
+                                </div>
+                                <button class="select-btn" onclick="selectTanker('medium', 'ClearWater Express', 720, 3500)">
+                                    Select This Tanker
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Large Tankers -->
+                <div class="tanker-category">
+                    <h3><i class="fas fa-truck"></i> Large Tankers (6000-10000 Liters)</h3>
+                    <div class="tanker-grid">
+                        <div class="tanker-card" data-size="large" data-vendor="MegaWater Solutions" data-price="1200">
+                            <div class="tanker-image">
+                                <img src="assets/big 1.jpg" alt="Large Water Tanker" loading="lazy">
+                                <div class="size-badge">8000L</div>
+                            </div>
+                            <div class="tanker-info">
+                                <h4>MegaWater Solutions</h4>
+                                <p class="vendor-rating">
+                                    <span class="stars">★★★★☆</span>
+                                    <span class="rating-text">4.3 (67 reviews)</span>
+                                </p>
+                                <div class="tanker-details">
+                                    <p><i class="fas fa-tint"></i> Industrial & Construction</p>
+                                    <p><i class="fas fa-clock"></i> 4-6 Hours Delivery</p>
+                                    <p><i class="fas fa-map-marker-alt"></i> Bangalore, Peenya</p>
+                                </div>
+                                <div class="price-section">
+                                    <span class="price">₹1,200</span>
+                                    <span class="price-unit">per tanker</span>
+                                </div>
+                                <button class="select-btn" onclick="selectTanker('large', 'MegaWater Solutions', 1200, 8000)">
+                                    Select This Tanker
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="tanker-card" data-size="large" data-vendor="AquaGiant Corp" data-price="1450">
+                            <div class="tanker-image">
+                                <img src="assets/big 2.jpg" alt="Large Water Tanker" loading="lazy">
+                                <div class="size-badge">10000L</div>
+                            </div>
+                            <div class="tanker-info">
+                                <h4>AquaGiant Corp</h4>
+                                <p class="vendor-rating">
+                                    <span class="stars">★★★★★</span>
+                                    <span class="rating-text">4.9 (94 reviews)</span>
+                                </p>
+                                <div class="tanker-details">
+                                    <p><i class="fas fa-tint"></i> Premium Multi-Use Water</p>
+                                    <p><i class="fas fa-clock"></i> 3-5 Hours Delivery</p>
+                                    <p><i class="fas fa-map-marker-alt"></i> Bangalore, Hebbal</p>
+                                </div>
+                                <div class="price-section">
+                                    <span class="price">₹1,450</span>
+                                    <span class="price-unit">per tanker</span>
+                                </div>
+                                <button class="select-btn" onclick="selectTanker('large', 'AquaGiant Corp', 1450, 10000)">
+                                    Select This Tanker
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Order Modal -->
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Confirm Your Order</h2>
+            <div id="orderDetails"></div>
+            <form id="orderForm">
+                <div class="form-group">
+                    <label for="deliveryAddress">Delivery Address:</label>
+                    <textarea id="deliveryAddress" required placeholder="Enter your complete delivery address..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="deliveryDate">Preferred Delivery Date:</label>
+                    <input type="date" id="deliveryDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="deliveryTime">Preferred Time Slot:</label>
+                    <select id="deliveryTime" required>
+                        <option value="">Select Time Slot</option>
+                        <option value="9am-12pm">9:00 AM - 12:00 PM</option>
+                        <option value="12pm-3pm">12:00 PM - 3:00 PM</option>
+                        <option value="3pm-6pm">3:00 PM - 6:00 PM</option>
+                        <option value="6pm-9pm">6:00 PM - 9:00 PM</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="specialInstructions">Special Instructions:</label>
+                    <textarea id="specialInstructions" placeholder="Any special delivery instructions..."></textarea>
+                </div>
+                <div class="modal-buttons">
+                    <button type="button" class="cancel-btn" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="confirm-btn">Confirm Order</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>SUPPORT</h3>
+                    <div class="footer-about">
+                        <h4>About Us</h4>
+                        <p>AquaHub aims to provide on-demand water tanker supply to water scarce areas in bangalore. With transparent pricing, quality driver network and fresh-clean water as the fundamentals of our company.</p>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/AquaHubIndia"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/aquahub.india/"><i class="fab fa-instagram"></i></a>
+                        <a href="https://in.linkedin.com/company/aquahub"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Navigate</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="#orders">My Orders</a></li>
+                        <li><a href="#profile">Profile</a></li>
+                        <li><a href="#support">Support</a></li>
+                        <li><a href="tel:+918431341723">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="#">FAQ's</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Our Journey</h3>
+                    <div class="instagram-feed">
+                        <div class="insta-post"></div>
+                        <div class="insta-post"></div>
+                        <div class="insta-post"></div>
+                        <div class="insta-post"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; AquaHub. All rights reserved</p>
+                    <p><a href="http://wodo.agency/">Designed by WODO</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Check user authentication and access
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!checkUserAccess('customer')) {
+                return;
+            }
+            
+            // Load user information
+            const currentUser = getCurrentUser();
+            if (currentUser) {
+                document.getElementById('userName').textContent = currentUser.name;
+                document.getElementById('welcomeName').textContent = currentUser.name;
+            }
+        });
+    </script>
+    <script src="buyer-dashboard.js"></script>
+</body>
+</html>

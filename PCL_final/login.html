@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - AquaHub</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <a href="index.html">
+                        <img src="assets/pcl logo.jpg" alt="AquaHub Logo" class="logo-img">
+                        <span class="logo-text">AquaHub</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Login Section -->
+    <section class="login-section">
+        <div class="login-container">
+            <div class="login-form-wrapper">
+                <div class="login-header">
+                    <h1>Welcome to AquaHub</h1>
+                    <p>Sign in to access your dashboard</p>
+                </div>
+
+                <!-- Login/Register Toggle -->
+                <div class="auth-toggle">
+                    <button class="toggle-btn active" id="loginToggle">Login</button>
+                    <button class="toggle-btn" id="registerToggle">Register</button>
+                </div>
+
+                <!-- Login Form -->
+                <form class="auth-form" id="loginForm">
+                    <div class="form-group">
+                        <label for="loginEmail">Email</label>
+                        <input type="email" id="loginEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" required>
+                    </div>
+                    <button type="submit" class="auth-btn">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Login
+                    </button>
+                </form>
+
+                <!-- Register Form -->
+                <form class="auth-form hidden" id="registerForm">
+                    <div class="form-group">
+                        <label for="registerName">Full Name</label>
+                        <input type="text" id="registerName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerEmail">Email</label>
+                        <input type="email" id="registerEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPhone">Phone Number</label>
+                        <input type="tel" id="registerPhone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword">Password</label>
+                        <input type="password" id="registerPassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="userType">Register as:</label>
+                        <select id="userType" required>
+                            <option value="">Select your role</option>
+                            <option value="customer">Customer (Book Water Tankers)</option>
+                            <option value="vendor">Vendor (Provide Water Services)</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="auth-btn">
+                        <i class="fas fa-user-plus"></i>
+                        Register
+                    </button>
+                </form>
+
+                <!-- Demo Login Section -->
+                <div class="demo-section">
+                    <h3>Demo Login</h3>
+                    <p>Try the platform with demo accounts:</p>
+                    <div class="demo-buttons">
+                        <button class="demo-btn customer-demo" onclick="demoLogin('customer')">
+                            <i class="fas fa-user"></i>
+                            Customer Demo
+                        </button>
+                        <button class="demo-btn vendor-demo" onclick="demoLogin('vendor')">
+                            <i class="fas fa-truck"></i>
+                            Vendor Demo
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="login-info">
+                <div class="info-content">
+                    <h2>Join AquaHub Today</h2>
+                    <div class="feature-list">
+                        <div class="feature-item">
+                            <i class="fas fa-tint"></i>
+                            <div>
+                                <h4>For Customers</h4>
+                                <p>Book water tankers instantly, track deliveries, and manage orders</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-truck"></i>
+                            <div>
+                                <h4>For Vendors</h4>
+                                <p>Manage your fleet, accept orders, and grow your business</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <div>
+                                <h4>Secure & Reliable</h4>
+                                <p>Safe transactions and verified service providers</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="login.js"></script>
+</body>
+</html>

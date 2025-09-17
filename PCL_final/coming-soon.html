@@ -1,0 +1,612 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon - AquaHub</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .coming-soon-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #20b2aa 0%, #17a2b8 50%, #007bb8 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            padding: 2rem 0;
+        }
+        
+        .coming-soon-content {
+            max-width: 800px;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .header-section {
+            margin-bottom: 3rem;
+            animation: slideInFromTop 1s ease-out;
+        }
+        
+        .features-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .feature-card:nth-child(2) { animation-delay: 0.5s; }
+        .feature-card:nth-child(3) { animation-delay: 1s; }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #ffffff;
+            animation: pulse 2s infinite;
+        }
+        
+        .feature-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-description {
+            font-size: 1rem;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+        
+        .countdown-section {
+            margin: 3rem 0;
+            animation: fadeInUp 1s ease-out 1s both;
+        }
+        
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .countdown-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            min-width: 100px;
+            animation: bounce 2s infinite;
+        }
+        
+        .countdown-item:nth-child(2) { animation-delay: 0.2s; }
+        .countdown-item:nth-child(3) { animation-delay: 0.4s; }
+        .countdown-item:nth-child(4) { animation-delay: 0.6s; }
+        
+        .countdown-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            display: block;
+            line-height: 1;
+        }
+        
+        .countdown-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .notify-section {
+            margin: 3rem 0;
+            animation: fadeInUp 1s ease-out 1.5s both;
+        }
+        
+        .notify-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 500px;
+            margin: 2rem auto;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .notify-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .notify-input:focus {
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .notify-btn {
+            padding: 1rem 2rem;
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        
+        .notify-btn:hover {
+            background: #c82333;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.4);
+        }
+        
+        .social-follow {
+            margin: 3rem 0;
+            animation: fadeInUp 1s ease-out 2s both;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .social-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px) scale(1.1);
+            color: white;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInFromTop {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .coming-soon-stamp {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+            animation: pulse 2s infinite;
+        }
+        
+        .stamp-fallback {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        
+        .stamp-circle {
+            width: 200px;
+            height: 200px;
+            border: 8px solid #dc3545;
+            border-radius: 50%;
+            background: rgba(220, 53, 69, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transform: rotate(-10deg);
+            box-shadow: inset 0 0 0 3px #dc3545;
+        }
+        
+        .stamp-text {
+            text-align: center;
+            color: #dc3545;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .stamp-coming {
+            display: block;
+            font-size: 2rem;
+            line-height: 1;
+        }
+        
+        .stamp-soon {
+            display: block;
+            font-size: 2rem;
+            line-height: 1;
+        }
+        
+        .stamp-stars {
+            position: absolute;
+            top: 20px;
+            display: flex;
+            gap: 15px;
+            color: #dc3545;
+            font-size: 1rem;
+        }
+        
+        .stamp-stars .fas {
+            animation: sparkle 1.5s infinite alternate;
+        }
+        
+        .stamp-stars .fas:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+        
+        .stamp-stars .fas:nth-child(3) {
+            animation-delay: 1s;
+        }
+        
+        @keyframes sparkle {
+            0% { opacity: 0.5; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .coming-soon-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        
+        .coming-soon-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .coming-soon-description {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 3rem;
+            opacity: 0.8;
+        }
+        
+        .back-home-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: white;
+            color: #17a2b8;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .back-home-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.95);
+        }
+        
+        .water-bubbles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .bubble {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s infinite ease-in-out;
+        }
+        
+        .bubble:nth-child(1) { width: 80px; height: 80px; left: 10%; animation-delay: 0s; }
+        .bubble:nth-child(2) { width: 120px; height: 120px; left: 80%; animation-delay: 2s; }
+        .bubble:nth-child(3) { width: 60px; height: 60px; left: 50%; animation-delay: 4s; }
+        .bubble:nth-child(4) { width: 100px; height: 100px; left: 20%; animation-delay: 1s; }
+        .bubble:nth-child(5) { width: 70px; height: 70px; left: 70%; animation-delay: 3s; }
+        .bubble:nth-child(6) { width: 90px; height: 90px; left: 40%; animation-delay: 5s; }
+        .bubble:nth-child(7) { width: 50px; height: 50px; left: 85%; animation-delay: 1.5s; }
+        .bubble:nth-child(8) { width: 110px; height: 110px; left: 15%; animation-delay: 3.5s; }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10%, 90% { opacity: 1; }
+            50% { transform: translateY(-100px) rotate(180deg); }
+        }
+        
+        @media (max-width: 768px) {
+            .coming-soon-title {
+                font-size: 2rem;
+            }
+            
+            .features-preview {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .countdown-timer {
+                gap: 1rem;
+            }
+            
+            .countdown-item {
+                padding: 1rem;
+                min-width: 80px;
+            }
+            
+            .countdown-number {
+                font-size: 2rem;
+            }
+            
+            .notify-form {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .notify-input {
+                min-width: 100%;
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="coming-soon-container">
+        <div class="water-bubbles">
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+        </div>
+        
+        <div class="coming-soon-content">
+            <div class="header-section">
+                <div class="coming-soon-stamp">
+                    <img src="assets/09fe5eefb409ff33cfaf3ef6d0624017.jpg" alt="Coming Soon" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                </div>
+                
+                <h1 class="coming-soon-title">Coming Soon</h1>
+                <h2 class="coming-soon-subtitle">Something Amazing is on the Way!</h2>
+                <p class="coming-soon-description">
+                    We're working hard to bring you new and exciting features for AquaHub. 
+                    Stay tuned for updates on our water delivery services and innovative solutions.
+                </p>
+            </div>
+
+            <!-- Features Preview Section -->
+            <div class="features-preview">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Mobile App</h3>
+                    <p class="feature-description">Order water tankers on-the-go with our upcoming mobile application</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="feature-title">Instant Delivery</h3>
+                    <p class="feature-description">Get water delivered within 30 minutes with our express service</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Quality Assured</h3>
+                    <p class="feature-description">Premium quality water with advanced filtration technology</p>
+                </div>
+            </div>
+
+            <!-- Countdown Timer Section -->
+            <div class="countdown-section">
+                <h3 style="font-size: 2rem; margin-bottom: 1rem;">Launch Countdown</h3>
+                <div class="countdown-timer">
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="days">30</span>
+                        <span class="countdown-label">Days</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="hours">12</span>
+                        <span class="countdown-label">Hours</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="minutes">45</span>
+                        <span class="countdown-label">Minutes</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="seconds">30</span>
+                        <span class="countdown-label">Seconds</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Email Notification Section -->
+            <div class="notify-section">
+                <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">Get Notified When We Launch</h3>
+                <p style="opacity: 0.9; margin-bottom: 1.5rem;">Be the first to know when our new features go live!</p>
+                <form class="notify-form">
+                    <input type="email" class="notify-input" placeholder="Enter your email address" required>
+                    <button type="submit" class="notify-btn">
+                        <i class="fas fa-bell"></i> Notify Me
+                    </button>
+                </form>
+            </div>
+
+            <!-- Social Media Follow Section -->
+            <div class="social-follow">
+                <h3 style="font-size: 1.6rem; margin-bottom: 1rem;">Follow Us for Updates</h3>
+                <div class="social-links">
+                    <a href="#" class="social-link" title="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="social-link" title="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="social-link" title="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="social-link" title="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="#" class="social-link" title="YouTube">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <a href="index.html" class="back-home-btn">
+                <i class="fas fa-home"></i>
+                Back to Home
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Countdown Timer Logic
+        function updateCountdown() {
+            // Set target date (30 days from now)
+            const targetDate = new Date();
+            targetDate.setDate(targetDate.getDate() + 30);
+            
+            const now = new Date().getTime();
+            const distance = targetDate.getTime() - now;
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+        
+        // Update countdown every second
+        setInterval(updateCountdown, 1000);
+        updateCountdown(); // Initial call
+        
+        // Email notification form
+        document.querySelector('.notify-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input').value;
+            if (email) {
+                alert('Thank you! We\'ll notify you at ' + email + ' when we launch.');
+                this.querySelector('input').value = '';
+            }
+        });
+        
+        // Add some interactive animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Stagger animation for feature cards
+            const featureCards = document.querySelectorAll('.feature-card');
+            featureCards.forEach((card, index) => {
+                card.style.animationDelay = (index * 0.2) + 's';
+            });
+            
+            // Add hover effect to countdown items
+            const countdownItems = document.querySelectorAll('.countdown-item');
+            countdownItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.1) translateY(-5px)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1) translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
