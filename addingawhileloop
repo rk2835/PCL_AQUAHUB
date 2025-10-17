@@ -1,0 +1,5 @@
+bound = 0
+number = 1
+while number !=  bound:
+   for i in range(number, 99999):
+      print(number, number + 1)
