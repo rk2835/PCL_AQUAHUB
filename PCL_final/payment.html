@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - AquaHub</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="payment.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header/Navigation -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <img src="assets/Untitled_design-removebg-preview.png" alt="AquaHub" class="logo-img">
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="buyer-dashboard.html" class="nav-link">Dashboard</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">Payment</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <a href="tel:+918431341723" class="call-btn">CALL NOW</a>
+                </div>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="payment-main">
+        <div class="container">
+            <div class="payment-container">
+                <!-- Left Side: Order Summary -->
+                <div class="order-summary-section">
+                    <h2><i class="fas fa-receipt"></i> Order Summary</h2>
+                    
+                    <div class="summary-card">
+                        <div class="summary-item">
+                            <h3><i class="fas fa-truck"></i> Tanker Details</h3>
+                            <div class="item-details">
+                                <p><strong>Vendor:</strong> <span id="summary-vendor">-</span></p>
+                                <p><strong>Capacity:</strong> <span id="summary-capacity">-</span> Liters</p>
+                                <p><strong>Size:</strong> <span id="summary-size">-</span></p>
+                            </div>
+                        </div>
+
+                        <div class="summary-item">
+                            <h3><i class="fas fa-map-marker-alt"></i> Delivery Address</h3>
+                            <div class="item-details" id="summary-address">
+                                <p>-</p>
+                            </div>
+                        </div>
+
+                        <div class="summary-item">
+                            <h3><i class="fas fa-tint"></i> Water Type</h3>
+                            <div class="item-details">
+                                <p id="summary-water-type">-</p>
+                            </div>
+                        </div>
+
+                        <div class="summary-item price-breakdown">
+                            <h3><i class="fas fa-calculator"></i> Price Breakdown</h3>
+                            <div class="breakdown-details">
+                                <div class="breakdown-row">
+                                    <span>Tanker Cost</span>
+                                    <span>₹<span id="base-price">0</span></span>
+                                </div>
+                                <div class="breakdown-row">
+                                    <span>GST (18%)</span>
+                                    <span>₹<span id="gst-amount">0</span></span>
+                                </div>
+                                <div class="breakdown-row">
+                                    <span>Delivery Charges</span>
+                                    <span class="free-badge">FREE</span>
+                                </div>
+                                <div class="breakdown-row total-row">
+                                    <strong>Total Amount</strong>
+                                    <strong class="total-amount">₹<span id="total-amount">0</span></strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="security-badge">
+                        <i class="fas fa-shield-alt"></i>
+                        <div>
+                            <strong>Secure Payment</strong>
+                            <p>Your payment information is encrypted and secure</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side: Payment Options -->
+                <div class="payment-options-section">
+                    <h2><i class="fas fa-credit-card"></i> Select Payment Method</h2>
+
+                    <!-- Payment Methods -->
+                    <div class="payment-methods">
+                        <!-- UPI Payment -->
+                        <div class="payment-method active" data-method="upi">
+                            <div class="method-header">
+                                <input type="radio" name="payment" id="upi" checked>
+                                <label for="upi">
+                                    <i class="fas fa-mobile-alt"></i>
+                                    <span>UPI Payment</span>
+                                </label>
+                                <div class="method-icons">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/UPI-Logo-vector.svg" alt="UPI" style="height: 20px;">
+                                </div>
+                            </div>
+                            <div class="method-content">
+                                <div class="form-group">
+                                    <label for="upi-id">UPI ID</label>
+                                    <input type="text" id="upi-id" placeholder="yourname@upi">
+                                    <small>Enter your UPI ID (e.g., 9876543210@paytm)</small>
+                                </div>
+                                <div class="qr-option">
+                                    <p><strong>Or Scan QR Code</strong></p>
+                                    <div class="qr-placeholder">
+                                        <i class="fas fa-qrcode"></i>
+                                        <p>QR Code will appear here</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Credit/Debit Card -->
+                        <div class="payment-method" data-method="card">
+                            <div class="method-header">
+                                <input type="radio" name="payment" id="card">
+                                <label for="card">
+                                    <i class="fas fa-credit-card"></i>
+                                    <span>Credit/Debit Card</span>
+                                </label>
+                                <div class="method-icons">
+                                    <i class="fab fa-cc-visa"></i>
+                                    <i class="fab fa-cc-mastercard"></i>
+                                    <i class="fab fa-cc-amex"></i>
+                                </div>
+                            </div>
+                            <div class="method-content">
+                                <div class="form-group">
+                                    <label for="card-number">Card Number</label>
+                                    <input type="text" id="card-number" placeholder="1234 5678 9012 3456" maxlength="19">
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="expiry">Expiry Date</label>
+                                        <input type="text" id="expiry" placeholder="MM/YY" maxlength="5">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cvv">CVV</label>
+                                        <input type="text" id="cvv" placeholder="123" maxlength="3">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="card-name">Cardholder Name</label>
+                                    <input type="text" id="card-name" placeholder="Name on card">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Net Banking -->
+                        <div class="payment-method" data-method="netbanking">
+                            <div class="method-header">
+                                <input type="radio" name="payment" id="netbanking">
+                                <label for="netbanking">
+                                    <i class="fas fa-university"></i>
+                                    <span>Net Banking</span>
+                                </label>
+                            </div>
+                            <div class="method-content">
+                                <div class="form-group">
+                                    <label for="bank-select">Select Your Bank</label>
+                                    <select id="bank-select">
+                                        <option value="">Choose your bank</option>
+                                        <option value="sbi">State Bank of India</option>
+                                        <option value="hdfc">HDFC Bank</option>
+                                        <option value="icici">ICICI Bank</option>
+                                        <option value="axis">Axis Bank</option>
+                                        <option value="kotak">Kotak Mahindra Bank</option>
+                                        <option value="pnb">Punjab National Bank</option>
+                                        <option value="boi">Bank of India</option>
+                                        <option value="canara">Canara Bank</option>
+                                        <option value="other">Other Banks</option>
+                                    </select>
+                                </div>
+                                <div class="bank-grid">
+                                    <div class="bank-logo">SBI</div>
+                                    <div class="bank-logo">HDFC</div>
+                                    <div class="bank-logo">ICICI</div>
+                                    <div class="bank-logo">AXIS</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Wallet -->
+                        <div class="payment-method" data-method="wallet">
+                            <div class="method-header">
+                                <input type="radio" name="payment" id="wallet">
+                                <label for="wallet">
+                                    <i class="fas fa-wallet"></i>
+                                    <span>Digital Wallets</span>
+                                </label>
+                            </div>
+                            <div class="method-content">
+                                <div class="wallet-options">
+                                    <button class="wallet-btn">
+                                        <i class="fas fa-mobile-alt"></i>
+                                        <span>Paytm</span>
+                                    </button>
+                                    <button class="wallet-btn">
+                                        <i class="fas fa-google"></i>
+                                        <span>Google Pay</span>
+                                    </button>
+                                    <button class="wallet-btn">
+                                        <i class="fas fa-phone"></i>
+                                        <span>PhonePe</span>
+                                    </button>
+                                    <button class="wallet-btn">
+                                        <i class="fas fa-amazon"></i>
+                                        <span>Amazon Pay</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Cash on Delivery -->
+                        <div class="payment-method" data-method="cod">
+                            <div class="method-header">
+                                <input type="radio" name="payment" id="cod">
+                                <label for="cod">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                    <span>Cash on Delivery</span>
+                                </label>
+                                <div class="cod-badge">Popular</div>
+                            </div>
+                            <div class="method-content">
+                                <div class="cod-info">
+                                    <div class="info-box">
+                                        <i class="fas fa-info-circle"></i>
+                                        <div>
+                                            <strong>Pay when you receive the water</strong>
+                                            <p>Please keep exact change ready. Our delivery partner will collect the payment at the time of delivery.</p>
+                                        </div>
+                                    </div>
+                                    <div class="cod-benefits">
+                                        <h4>Why choose Cash on Delivery?</h4>
+                                        <ul>
+                                            <li><i class="fas fa-check-circle"></i> No online transaction needed</li>
+                                            <li><i class="fas fa-check-circle"></i> Pay only when you receive</li>
+                                            <li><i class="fas fa-check-circle"></i> Verify water quality before payment</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="payment-actions">
+                        <button class="btn-back" onclick="goBack()">
+                            <i class="fas fa-arrow-left"></i> Back to Dashboard
+                        </button>
+                        <button class="btn-pay" onclick="processPayment()">
+                            <i class="fas fa-lock"></i> Pay Securely ₹<span id="pay-amount">0</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; AquaHub. All rights reserved</p>
+                    <p><a href="http://wodo.agency/">Designed by WODO</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="payment.js"></script>
+</body>
+</html>

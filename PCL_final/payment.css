@@ -1,0 +1,561 @@
+/* Payment Page Specific Styles */
+
+.payment-main {
+    min-height: calc(100vh - 200px);
+    padding: 2rem 0;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.payment-container {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+/* Order Summary Section */
+.order-summary-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.order-summary-section h2,
+.payment-options-section h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.order-summary-section h2 i,
+.payment-options-section h2 i {
+    color: #17a2b8;
+    font-size: 1.6rem;
+}
+
+.summary-card {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.summary-item {
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.summary-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.summary-item h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.summary-item h3 i {
+    color: #17a2b8;
+    font-size: 1rem;
+}
+
+.item-details p {
+    margin: 0.5rem 0;
+    color: #495057;
+    font-size: 0.95rem;
+}
+
+.item-details strong {
+    color: #2c3e50;
+    font-weight: 600;
+    min-width: 120px;
+    display: inline-block;
+}
+
+/* Price Breakdown */
+.price-breakdown {
+    background: linear-gradient(145deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: none;
+}
+
+.breakdown-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.breakdown-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.95rem;
+    color: #495057;
+}
+
+.breakdown-row.total-row {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 2px solid #17a2b8;
+    font-size: 1.2rem;
+}
+
+.total-amount {
+    color: #17a2b8;
+    font-size: 1.5rem;
+}
+
+.free-badge {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* Security Badge */
+.security-badge {
+    background: linear-gradient(135deg, #17a2b8 0%, #20b2aa 100%);
+    color: white;
+    padding: 1.25rem;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 4px 12px rgba(23, 162, 184, 0.3);
+}
+
+.security-badge i {
+    font-size: 2.5rem;
+    opacity: 0.9;
+}
+
+.security-badge strong {
+    font-size: 1.1rem;
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.security-badge p {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin: 0;
+}
+
+/* Payment Options Section */
+.payment-options-section {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.payment-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.payment-method {
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.payment-method.active {
+    border-color: #17a2b8;
+    box-shadow: 0 4px 16px rgba(23, 162, 184, 0.2);
+}
+
+.method-header {
+    padding: 1.25rem;
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.payment-method.active .method-header {
+    background: linear-gradient(135deg, #e3f2fd 0%, #d1ecf1 100%);
+}
+
+.method-header input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    accent-color: #17a2b8;
+    cursor: pointer;
+}
+
+.method-header label {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: #2c3e50;
+    cursor: pointer;
+}
+
+.method-header label i {
+    font-size: 1.4rem;
+    color: #17a2b8;
+}
+
+.method-icons {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.method-icons i {
+    font-size: 1.8rem;
+    color: #495057;
+}
+
+.cod-badge {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+    color: white;
+    padding: 0.35rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.method-content {
+    padding: 1.5rem;
+    display: none;
+    background: white;
+    animation: slideDown 0.3s ease;
+}
+
+.payment-method.active .method-content {
+    display: block;
+}
+
+/* Form Elements */
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #17a2b8;
+    box-shadow: 0 0 0 3px rgba(23, 162, 184, 0.1);
+}
+
+.form-group small {
+    display: block;
+    margin-top: 0.4rem;
+    color: #6c757d;
+    font-size: 0.85rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+/* QR Code */
+.qr-option {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.qr-placeholder {
+    background: #f8f9fa;
+    border: 2px dashed #ced4da;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-top: 1rem;
+}
+
+.qr-placeholder i {
+    font-size: 4rem;
+    color: #ced4da;
+    margin-bottom: 0.5rem;
+}
+
+.qr-placeholder p {
+    color: #6c757d;
+    margin: 0;
+}
+
+/* Bank Grid */
+.bank-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.bank-logo {
+    background: #f8f9fa;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    font-weight: 600;
+    color: #495057;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.bank-logo:hover {
+    border-color: #17a2b8;
+    background: #e3f2fd;
+    transform: translateY(-2px);
+}
+
+/* Wallet Options */
+.wallet-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.wallet-btn {
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.wallet-btn:hover {
+    border-color: #17a2b8;
+    background: #e3f2fd;
+    transform: translateY(-2px);
+}
+
+.wallet-btn i {
+    font-size: 2rem;
+    color: #17a2b8;
+}
+
+/* COD Info */
+.cod-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.info-box {
+    background: #fff3cd;
+    border: 2px solid #ffc107;
+    border-radius: 10px;
+    padding: 1.25rem;
+    display: flex;
+    gap: 1rem;
+    align-items: start;
+}
+
+.info-box i {
+    font-size: 1.5rem;
+    color: #ffc107;
+    flex-shrink: 0;
+}
+
+.info-box strong {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #856404;
+}
+
+.info-box p {
+    margin: 0;
+    color: #856404;
+    font-size: 0.9rem;
+}
+
+.cod-benefits h4 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.cod-benefits ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.cod-benefits li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #495057;
+}
+
+.cod-benefits li i {
+    color: #28a745;
+    font-size: 1.1rem;
+}
+
+/* Payment Actions */
+.payment-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 2px solid #f0f0f0;
+}
+
+.payment-actions button {
+    flex: 1;
+    padding: 1.125rem 2rem;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.btn-back {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-back:hover {
+    background: #5a6268;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+}
+
+.btn-pay {
+    flex: 2;
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: white;
+    font-size: 1.15rem;
+}
+
+.btn-pay:hover {
+    background: linear-gradient(135deg, #218838 0%, #1aa179 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .payment-container {
+        grid-template-columns: 1fr;
+    }
+
+    .order-summary-section {
+        order: 2;
+    }
+
+    .payment-options-section {
+        order: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .payment-main {
+        padding: 1rem 0;
+    }
+
+    .summary-card,
+    .payment-options-section {
+        padding: 1.5rem;
+    }
+
+    .order-summary-section h2,
+    .payment-options-section h2 {
+        font-size: 1.5rem;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .bank-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .wallet-options {
+        grid-template-columns: 1fr;
+    }
+
+    .payment-actions {
+        flex-direction: column-reverse;
+    }
+
+    .payment-actions button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .method-header label span {
+        font-size: 0.95rem;
+    }
+
+    .method-header label i {
+        font-size: 1.2rem;
+    }
+
+    .breakdown-row.total-row {
+        font-size: 1.05rem;
+    }
+
+    .total-amount {
+        font-size: 1.3rem;
+    }
+}

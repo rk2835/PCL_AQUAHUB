@@ -6,6 +6,70 @@ document.addEventListener('DOMContentLoaded', function() {
     const registerToggle = document.getElementById('registerToggle');
     const loginForm = document.getElementById('loginForm');
     const registerForm = document.getElementById('registerForm');
+    const userTypeSelect = document.getElementById('userType');
+
+    // Check URL parameters for intended user type
+    const urlParams = new URLSearchParams(window.location.search);
+    const intendedType = urlParams.get('type');
+    
+    // Store intended type for later use
+    if (intendedType) {
+        sessionStorage.setItem('intended_user_type', intendedType);
+        
+        // Pre-select user type in registration form
+        if (userTypeSelect && (intendedType === 'customer' || intendedType === 'vendor')) {
+            userTypeSelect.value = intendedType;
+        }
+        
+        // Update page text to be more specific
+        const loginHeader = document.querySelector('.login-header h1');
+        const loginSubtext = document.querySelector('.login-header p');
+        const userTypeHint = document.getElementById('userTypeHint');
+        
+        if (loginHeader && loginSubtext) {
+            if (intendedType === 'customer') {
+                loginHeader.textContent = 'Customer Login';
+                loginSubtext.textContent = 'Sign in to book water tankers';
+                
+                if (userTypeHint) {
+                    userTypeHint.innerHTML = '<i class="fas fa-info-circle"></i> New here? Click "Register" and select "Customer" to book water tankers';
+                    userTypeHint.style.display = 'block';
+                    userTypeHint.style.cssText = `
+                        display: block;
+                        margin-top: 1rem;
+                        padding: 0.75rem 1rem;
+                        background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+                        color: #1565c0;
+                        border-radius: 8px;
+                        font-size: 0.9rem;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                    `;
+                }
+            } else if (intendedType === 'vendor') {
+                loginHeader.textContent = 'Vendor Login';
+                loginSubtext.textContent = 'Sign in to manage your services';
+                
+                if (userTypeHint) {
+                    userTypeHint.innerHTML = '<i class="fas fa-info-circle"></i> New here? Click "Register" and select "Vendor" to provide water services';
+                    userTypeHint.style.display = 'block';
+                    userTypeHint.style.cssText = `
+                        display: block;
+                        margin-top: 1rem;
+                        padding: 0.75rem 1rem;
+                        background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+                        color: #e65100;
+                        border-radius: 8px;
+                        font-size: 0.9rem;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                    `;
+                }
+            }
+        }
+    }
 
     loginToggle.addEventListener('click', function() {
         loginToggle.classList.add('active');
@@ -80,6 +144,29 @@ function loginUser(email, password) {
         // Set user session
         setUserSession(user);
         
+        // Check if there was an intended user type
+        const intendedType = sessionStorage.getItem('intended_user_type');
+        
+        // Warn if user type doesn't match intended type, but still allow login
+        if (intendedType && user.userType !== intendedType) {
+            if (intendedType === 'customer' && user.userType === 'vendor') {
+                showMessage('Note: You are logging in as a Vendor. To book water tankers, please register a Customer account.', 'warning');
+                setTimeout(() => {
+                    window.location.href = 'vendor-dashboard.html';
+                }, 2000);
+                return;
+            } else if (intendedType === 'vendor' && user.userType === 'customer') {
+                showMessage('Note: You are logging in as a Customer. To provide water services, please register a Vendor account.', 'warning');
+                setTimeout(() => {
+                    window.location.href = 'buyer-dashboard.html';
+                }, 2000);
+                return;
+            }
+        }
+        
+        // Clear intended type
+        sessionStorage.removeItem('intended_user_type');
+        
         // Redirect based on user type
         if (user.userType === 'customer') {
             window.location.href = 'buyer-dashboard.html';
@@ -89,7 +176,7 @@ function loginUser(email, password) {
         
         showMessage('Login successful! Redirecting...', 'success');
     } else {
-        showMessage('Invalid email or password. Please try again.', 'error');
+        showMessage('Invalid email or password. Please try again or register a new account.', 'error');
     }
 }
 
@@ -100,7 +187,13 @@ function registerUser(name, email, phone, password, userType) {
     
     // Check if user already exists
     if (users.find(u => u.email === email)) {
-        showMessage('User with this email already exists!', 'error');
+        showMessage('User with this email already exists! Please login instead.', 'error');
+        return;
+    }
+    
+    // Validate user type is selected
+    if (!userType || userType === '') {
+        showMessage('Please select whether you want to register as a Customer or Vendor.', 'error');
         return;
     }
     
@@ -125,14 +218,21 @@ function registerUser(name, email, phone, password, userType) {
     // Set user session
     setUserSession(newUser);
     
+    // Clear intended type
+    sessionStorage.removeItem('intended_user_type');
+    
     // Redirect based on user type
     if (userType === 'customer') {
-        window.location.href = 'buyer-dashboard.html';
+        showMessage('Registration successful! Redirecting to Customer Dashboard...', 'success');
+        setTimeout(() => {
+            window.location.href = 'buyer-dashboard.html';
+        }, 1500);
     } else if (userType === 'vendor') {
-        window.location.href = 'vendor-dashboard.html';
+        showMessage('Registration successful! Redirecting to Vendor Dashboard...', 'success');
+        setTimeout(() => {
+            window.location.href = 'vendor-dashboard.html';
+        }, 1500);
     }
-    
-    showMessage('Registration successful! Redirecting...', 'success');
 }
 
 // Set user session
@@ -191,10 +291,23 @@ function showMessage(message, type) {
     // Create message element
     const messageEl = document.createElement('div');
     messageEl.className = `auth-message ${type}`;
+    
+    // Determine icon based on type
+    let icon = 'fa-info-circle';
+    if (type === 'success') icon = 'fa-check-circle';
+    else if (type === 'error') icon = 'fa-exclamation-circle';
+    else if (type === 'warning') icon = 'fa-exclamation-triangle';
+    
     messageEl.innerHTML = `
-        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+        <i class="fas ${icon}"></i>
         <span>${message}</span>
     `;
+    
+    // Determine background color based on type
+    let background = 'linear-gradient(135deg, #17a2b8, #20b2aa)'; // info (default)
+    if (type === 'success') background = 'linear-gradient(135deg, #28a745, #20c997)';
+    else if (type === 'error') background = 'linear-gradient(135deg, #dc3545, #e74c3c)';
+    else if (type === 'warning') background = 'linear-gradient(135deg, #ffc107, #ff9800)';
     
     // Add styles
     messageEl.style.cssText = `
@@ -210,8 +323,9 @@ function showMessage(message, type) {
         align-items: center;
         gap: 0.5rem;
         box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-        background: ${type === 'success' ? 'linear-gradient(135deg, #28a745, #20c997)' : 'linear-gradient(135deg, #dc3545, #e74c3c)'};
+        background: ${background};
         animation: slideIn 0.3s ease;
+        max-width: 400px;
     `;
     
     // Add animation

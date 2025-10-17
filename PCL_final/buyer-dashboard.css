@@ -284,6 +284,12 @@
 .filter-section {
     margin-bottom: 3rem;
     animation: fadeInUp 0.8s ease 0.4s both;
+    background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+    border: 2px solid #e0e0e0;
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08), 
+                0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .filter-container {
@@ -291,29 +297,18 @@
     gap: 1.5rem;
     align-items: end;
     flex-wrap: wrap;
-    background: white;
-    padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
     transition: all 0.3s ease;
     position: relative;
-    overflow: hidden;
-}
-
-.filter-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(23, 162, 184, 0.1), transparent);
-    animation: flowRight 4s ease-in-out infinite;
+    overflow: visible;
 }
 
 .filter-container:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    transform: none;
+    box-shadow: none;
 }
 
 .filter-group {
@@ -346,6 +341,541 @@
     border-color: #17a2b8;
     box-shadow: 0 0 0 3px rgba(23, 162, 184, 0.1);
     transform: translateY(-2px);
+}
+
+/* Google Maps Location Styles */
+.location-input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.location-autocomplete {
+    width: 100%;
+    padding: 0.75rem 2.5rem 0.75rem 0.75rem;
+    border: 2px solid #e1e5e9;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: white;
+    font-family: 'Poppins', sans-serif;
+}
+
+.location-autocomplete:focus {
+    outline: none;
+    border-color: #17a2b8;
+    box-shadow: 0 0 0 3px rgba(23, 162, 184, 0.1);
+    transform: translateY(-2px);
+}
+
+.location-autocomplete::placeholder {
+    color: #999;
+}
+
+.location-icon {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #17a2b8;
+    font-size: 1.2rem;
+    pointer-events: none;
+}
+
+.current-location-btn {
+    margin-top: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    background: linear-gradient(135deg, #17a2b8 0%, #20b2aa 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.current-location-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(23, 162, 184, 0.3);
+}
+
+.current-location-btn i {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+.location-map {
+    width: 100%;
+    height: 400px;
+    margin-top: 1rem;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 2px solid #e1e5e9;
+    position: relative;
+    z-index: 1;
+}
+
+/* Ensure Leaflet (OpenStreetMap) displays correctly */
+.location-map .leaflet-container {
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+}
+
+/* Google Maps Error Message Styling */
+.location-map .gm-err-container {
+    display: none !important;
+}
+
+.location-map .gm-err-message {
+    display: none !important;
+}
+
+/* Manual Address Entry Styles */
+.full-width {
+    grid-column: 1 / -1;
+}
+
+.manual-address-toggle {
+    margin-top: 1rem;
+    text-align: center;
+    padding: 0.5rem 0;
+}
+
+.manual-toggle-btn {
+    background: transparent;
+    border: 2px dashed #17a2b8;
+    color: #17a2b8;
+    padding: 0.9rem 2rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.manual-toggle-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(23, 162, 184, 0.1);
+    transform: translate(-50%, -50%);
+    transition: width 0.4s ease, height 0.4s ease;
+}
+
+.manual-toggle-btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.manual-toggle-btn:hover {
+    background: linear-gradient(135deg, #17a2b8 0%, #20b2aa 100%);
+    color: white;
+    border-style: solid;
+    border-color: transparent;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(23, 162, 184, 0.3);
+}
+
+.manual-toggle-btn i {
+    font-size: 1.15rem;
+    position: relative;
+    z-index: 1;
+}
+
+.manual-toggle-btn span {
+    position: relative;
+    z-index: 1;
+}
+
+.manual-toggle-btn.active {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    color: white;
+    border-style: solid;
+    border-color: transparent;
+    box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+}
+
+.manual-toggle-btn.active:hover {
+    background: linear-gradient(135deg, #c82333 0%, #bd2130 100%);
+    box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+}
+
+.manual-address-form {
+    margin-top: 1.5rem;
+    padding: 0;
+    background: transparent;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    animation: slideDown 0.4s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-section-title {
+    margin: 0 0 0.75rem 0;
+    color: #17a2b8;
+    font-size: 1.4rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 3px solid #e3f2fd;
+}
+
+.form-section-title i {
+    font-size: 1.5rem;
+    background: linear-gradient(135deg, #17a2b8, #20b2aa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.form-helper-text {
+    margin: 1rem 0 2rem 0;
+    color: #6c757d;
+    font-size: 0.95rem;
+    font-style: italic;
+    padding-left: 2.5rem;
+}
+
+/* Address Form Container with Horizontal Rows */
+.address-form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.address-form-row {
+    display: grid;
+    gap: 1rem;
+    align-items: start;
+}
+
+/* Row 1: 3 fields - Building, Street, Area */
+.address-form-row:first-child {
+    grid-template-columns: 1fr 1.5fr 1.2fr;
+}
+
+/* Row 2: 4 fields - Landmark, City, State, Pincode */
+.address-form-row:nth-child(2) {
+    grid-template-columns: 1.2fr 1fr 1fr 0.8fr;
+}
+
+/* Full width row for textarea */
+.full-width-row {
+    grid-template-columns: 1fr;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .address-form-row:first-child,
+    .address-form-row:nth-child(2) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .address-form-row {
+        grid-template-columns: 1fr !important;
+        gap: 1.25rem;
+    }
+}
+
+
+.form-field label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.7rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    transition: all 0.3s ease;
+}
+
+.form-field label i {
+    color: #17a2b8;
+    font-size: 1.1rem;
+    width: 20px;
+    text-align: center;
+}
+
+.required {
+    color: #dc3545;
+    font-weight: 700;
+    margin-left: 3px;
+    font-size: 1.1rem;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+    padding: 0.95rem 1.25rem;
+    border: 2px solid #e1e8ed;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.form-field input:hover,
+.form-field select:hover,
+.form-field textarea:hover {
+    border-color: #b8d4da;
+    box-shadow: 0 3px 12px rgba(23, 162, 184, 0.08);
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+    outline: none;
+    border-color: #17a2b8;
+    box-shadow: 0 0 0 5px rgba(23, 162, 184, 0.12);
+    transform: translateY(-2px);
+    background: #ffffff;
+}
+
+.form-field input:required:not(:placeholder-shown):invalid,
+.form-field select:required:invalid:not([value=""]) {
+    border-color: #ffc107;
+    background: #fffbf0;
+}
+
+.form-field input:required:valid:not(:placeholder-shown),
+.form-field select:required:valid:not([value=""]) {
+    border-color: #28a745;
+    background: #f0f9f4;
+    position: relative;
+}
+
+.form-field input:required:valid:not(:placeholder-shown)::after,
+.form-field select:required:valid:not([value=""])::after {
+    content: '✓';
+    position: absolute;
+    right: 15px;
+    color: #28a745;
+    font-weight: bold;
+}
+
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+    color: #a8b8c1;
+    font-style: italic;
+}
+
+.form-field textarea {
+    resize: vertical;
+    min-height: 90px;
+    line-height: 1.6;
+    font-size: 0.9rem;
+}
+
+.field-hint {
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: #6c757d;
+    font-style: italic;
+    padding-left: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.field-hint::before {
+    content: 'ℹ';
+    color: #17a2b8;
+    font-size: 0.9rem;
+}
+
+.locate-on-map-btn {
+    width: 100%;
+    padding: 1.2rem 2rem;
+    background: linear-gradient(135deg, #17a2b8 0%, #20b2aa 100%);
+    color: white;
+    border: none;
+    border-radius: 15px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.85rem;
+    box-shadow: 0 6px 20px rgba(23, 162, 184, 0.35);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    position: relative;
+    overflow: hidden;
+}
+
+.locate-on-map-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.locate-on-map-btn:hover::before {
+    left: 100%;
+}
+
+.locate-on-map-btn:hover {
+    background: linear-gradient(135deg, #138496 0%, #1a8f89 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(23, 162, 184, 0.45);
+}
+
+.locate-on-map-btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(23, 162, 184, 0.35);
+}
+
+.locate-on-map-btn i {
+    font-size: 1.4rem;
+}
+
+/* Improved Select Dropdown */
+.form-field select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2317a2b8' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 12px;
+    padding-right: 3rem;
+}
+
+/* Mobile Responsive for Manual Address Form */
+@media (max-width: 768px) {
+    .address-form-grid {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+    
+    .manual-toggle-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .manual-address-form {
+        padding: 1.75rem;
+    }
+    
+    .form-section-title {
+        font-size: 1.2rem;
+    }
+    
+    .form-helper-text {
+        padding-left: 0;
+        font-size: 0.85rem;
+    }
+    
+    .locate-on-map-btn {
+        font-size: 0.95rem;
+        padding: 1rem 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .manual-address-form {
+        padding: 1.5rem;
+        border-radius: 15px;
+    }
+    
+    .form-section-title {
+        font-size: 1.1rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .address-form-grid {
+        gap: 1rem;
+    }
+    
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+        padding: 0.85rem 1rem;
+    }
+}
+
+/* Google Maps Autocomplete Dropdown Styling */
+.pac-container {
+    border-radius: 8px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    margin-top: 4px;
+    font-family: 'Poppins', sans-serif;
+    border: none;
+}
+
+.pac-item {
+    padding: 10px 15px;
+    cursor: pointer;
+    border-top: 1px solid #e1e5e9;
+}
+
+.pac-item:hover {
+    background-color: #f0f8ff;
+}
+
+.pac-item-query {
+    font-size: 0.95rem;
+    color: #333;
+    font-weight: 500;
+}
+
+.pac-matched {
+    font-weight: 700;
+    color: #17a2b8;
 }
 
 .filter-btn {
@@ -1027,4 +1557,305 @@
     opacity: 0.3;
     transform: scale(0.95);
     pointer-events: none;
+}
+
+/* Scroll to Top Button */
+.scroll-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #17a2b8 0%, #20b2aa 100%);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 15px rgba(23, 162, 184, 0.4);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    z-index: 999;
+}
+
+.scroll-to-top:hover {
+    background: linear-gradient(135deg, #138496 0%, #1a8f89 100%);
+    box-shadow: 0 6px 20px rgba(23, 162, 184, 0.6);
+    transform: translateY(-3px);
+}
+
+.scroll-to-top:active {
+    transform: translateY(-1px);
+}
+
+.scroll-to-top.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.scroll-to-top i {
+    font-size: 1.2rem;
+}
+
+/* Mobile responsive for scroll button */
+@media (max-width: 768px) {
+    .scroll-to-top {
+        width: 45px;
+        height: 45px;
+        bottom: 20px;
+        right: 20px;
+        font-size: 1rem;
+    }
+    
+    .scroll-to-top i {
+        font-size: 1rem;
+    }
+}
+
+/* Booking Confirmation Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    animation: fadeIn 0.3s ease;
+}
+
+.modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+    margin: auto;
+    padding: 0;
+    border: none;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideDown 0.4s ease;
+    overflow: hidden;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-content h2 {
+    background: linear-gradient(135deg, #17a2b8 0%, #20b2aa 100%);
+    color: white;
+    padding: 1.5rem 2rem;
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.modal-content h2 i {
+    font-size: 1.5rem;
+}
+
+.close-modal {
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+    color: white;
+    font-size: 2rem;
+    font-weight: 300;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1;
+}
+
+.close-modal:hover {
+    transform: rotate(90deg);
+    color: #fff;
+}
+
+.booking-summary {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.summary-section {
+    background: white;
+    padding: 1.25rem;
+    border-radius: 12px;
+    border-left: 4px solid #17a2b8;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.summary-section h3 {
+    color: #2c3e50;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.summary-section h3 i {
+    color: #17a2b8;
+    font-size: 1rem;
+}
+
+.summary-details p {
+    margin: 0.5rem 0;
+    color: #495057;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.summary-details strong {
+    color: #2c3e50;
+    font-weight: 600;
+    min-width: 100px;
+    display: inline-block;
+}
+
+.total-section {
+    background: linear-gradient(135deg, #17a2b8 0%, #20b2aa 100%);
+    border-left: none;
+    color: white;
+}
+
+.total-section h3 {
+    color: white;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.total-section h3 i {
+    color: white;
+}
+
+.total-price {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    color: white;
+}
+
+.total-price .currency {
+    font-size: 2rem;
+    opacity: 0.9;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 1rem;
+    padding: 0 2rem 2rem 2rem;
+}
+
+.modal-actions button {
+    flex: 1;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.btn-cancel {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-cancel:hover {
+    background: #5a6268;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+}
+
+.btn-confirm {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: white;
+}
+
+.btn-confirm:hover {
+    background: linear-gradient(135deg, #218838 0%, #1aa179 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+/* Modal Responsive */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+        max-width: none;
+        margin: 1rem;
+    }
+
+    .modal-content h2 {
+        padding: 1.25rem 1.5rem;
+        font-size: 1.5rem;
+    }
+
+    .close-modal {
+        top: 1.25rem;
+        right: 1.5rem;
+        font-size: 1.75rem;
+    }
+
+    .booking-summary {
+        padding: 1.5rem;
+        gap: 1.25rem;
+    }
+
+    .summary-section {
+        padding: 1rem;
+    }
+
+    .total-price {
+        font-size: 2rem;
+    }
+
+    .modal-actions {
+        flex-direction: column;
+        padding: 0 1.5rem 1.5rem 1.5rem;
+    }
+
+    .modal-actions button {
+        padding: 0.875rem 1.5rem;
+    }
 }

@@ -8,17 +8,22 @@
     <link rel="stylesheet" href="buyer-dashboard.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Leaflet CSS for OpenStreetMap (fallback) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="login.js"></script>
+    <!-- Google Maps API with Places and Geocoding -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA17fsYlEVG1ZjRXcVQtf6BPWZWP2nlQVU&libraries=places,geocoding&callback=initMap" async defer></script>
+    <!-- Leaflet JS for OpenStreetMap (fallback) -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 <body>
     <!-- Header -->
     <header class="header">
         <nav class="navbar">
             <div class="nav-container">
-                <a href="index.html" class="logo">
-                    <img src="assets/pcl logo.jpg" alt="AquaHub PCL" class="logo-img">
-                    <span class="logo-text">AquaHub</span>
-                </a>
+                <div class="logo">
+                    <img src="assets/Untitled_design-removebg-preview.png" alt="AquaHub" class="logo-img">
+                </div>
                 <ul class="nav-menu">
                     <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
                     <li class="nav-item"><a href="#orders" class="nav-link">My Orders</a></li>
@@ -56,17 +61,166 @@
             <!-- Filter Section -->
             <section class="filter-section">
                 <div class="filter-container">
-                    <div class="filter-group">
+                    <div class="filter-group full-width">
                         <label for="location">Delivery Location:</label>
-                        <select id="location">
-                            <option value="">Select Location</option>
-                            <option value="bangalore">Bangalore</option>
-                            <option value="mumbai">Mumbai</option>
-                            <option value="delhi">Delhi</option>
-                            <option value="chennai">Chennai</option>
-                            <option value="hyderabad">Hyderabad</option>
-                        </select>
+                        
+                        <!-- Quick Location Option -->
+                        <div class="location-input-wrapper">
+                            <input 
+                                type="text" 
+                                id="location" 
+                                class="location-autocomplete"
+                                placeholder="Search for your location..."
+                            />
+                            <i class="fas fa-map-marker-alt location-icon"></i>
+                        </div>
+                        
+                        <button type="button" id="useCurrentLocation" class="current-location-btn">
+                            <i class="fas fa-crosshairs"></i> Use Current Location
+                        </button>
+
+                        <!-- Manual Address Entry Toggle -->
+                        <div class="manual-address-toggle">
+                            <button type="button" id="toggleManualAddress" class="manual-toggle-btn">
+                                <i class="fas fa-keyboard"></i> Enter Address Manually
+                            </button>
+                        </div>
+
+                        <!-- Manual Address Form (Hidden by default) -->
+                        <div id="manualAddressForm" class="manual-address-form" style="display: none;">
+                            <h3 class="form-section-title">
+                                <i class="fas fa-map-marker-alt"></i> Complete Delivery Address
+                            </h3>
+                            <p class="form-helper-text">
+                                <i class="fas fa-info-circle"></i> 
+                                Fields will be auto-filled when you use "Current Location" or search. You can modify any details as needed.
+                            </p>
+                            
+                            <div class="address-form-container">
+                                <!-- Row 1: Building and Street Details -->
+                                <div class="address-form-row">
+                                    <div class="form-field">
+                                        <label for="houseNo">
+                                            <i class="fas fa-home"></i> House/Flat/Building No. <span class="required">*</span>
+                                        </label>
+                                        <input 
+                                            type="text" 
+                                            id="houseNo" 
+                                            placeholder="e.g., 123, Flat 4B"
+                                            required
+                                        />
+                                    </div>
+                                    
+                                    <div class="form-field">
+                                        <label for="streetAddress">
+                                            <i class="fas fa-road"></i> Street/Road Name <span class="required">*</span>
+                                        </label>
+                                        <input 
+                                            type="text" 
+                                            id="streetAddress" 
+                                            placeholder="e.g., MG Road, 5th Cross"
+                                            required
+                                        />
+                                    </div>
+                                    
+                                    <div class="form-field">
+                                        <label for="area">
+                                            <i class="fas fa-map"></i> Area/Locality <span class="required">*</span>
+                                        </label>
+                                        <input 
+                                            type="text" 
+                                            id="area" 
+                                            placeholder="e.g., Koramangala"
+                                            required
+                                        />
+                                    </div>
+                                </div>
+                                
+                                <!-- Row 2: Landmark, City, State, Pincode -->
+                                <div class="address-form-row">
+                                    <div class="form-field">
+                                        <label for="landmark">
+                                            <i class="fas fa-location-arrow"></i> Landmark (Optional)
+                                        </label>
+                                        <input 
+                                            type="text" 
+                                            id="landmark" 
+                                            placeholder="e.g., Near City Mall"
+                                        />
+                                    </div>
+                                    
+                                    <div class="form-field">
+                                        <label for="city">
+                                            <i class="fas fa-city"></i> City <span class="required">*</span>
+                                        </label>
+                                        <input 
+                                            type="text" 
+                                            id="city" 
+                                            placeholder="e.g., Bangalore"
+                                            value="Bangalore"
+                                            required
+                                        />
+                                    </div>
+                                    
+                                    <div class="form-field">
+                                        <label for="state">
+                                            <i class="fas fa-flag"></i> State <span class="required">*</span>
+                                        </label>
+                                        <select id="state" required>
+                                            <option value="">Select State</option>
+                                            <option value="Karnataka" selected>Karnataka</option>
+                                            <option value="Maharashtra">Maharashtra</option>
+                                            <option value="Tamil Nadu">Tamil Nadu</option>
+                                            <option value="Telangana">Telangana</option>
+                                            <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                            <option value="Delhi">Delhi</option>
+                                            <option value="Gujarat">Gujarat</option>
+                                            <option value="Rajasthan">Rajasthan</option>
+                                            <option value="Kerala">Kerala</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-field">
+                                        <label for="pincode">
+                                            <i class="fas fa-mail-bulk"></i> Pincode <span class="required">*</span>
+                                        </label>
+                                        <input 
+                                            type="text" 
+                                            id="pincode" 
+                                            placeholder="e.g., 560001"
+                                            maxlength="6"
+                                            pattern="[0-9]{6}"
+                                            required
+                                        />
+                                        <small class="field-hint">6-digit code</small>
+                                    </div>
+                                </div>
+                                
+                                <!-- Row 3: Additional Instructions (Full Width) -->
+                                <div class="address-form-row full-width-row">
+                                    <div class="form-field">
+                                        <label for="additionalInfo">
+                                            <i class="fas fa-info-circle"></i> Additional Instructions (Optional)
+                                        </label>
+                                        <textarea 
+                                            id="additionalInfo" 
+                                            rows="2"
+                                            placeholder="Gate code, specific entry instructions, best time to deliver..."
+                                        ></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button type="button" id="locateOnMap" class="locate-on-map-btn">
+                                <i class="fas fa-map-marked-alt"></i> Locate This Address on Map
+                            </button>
+                        </div>
+
+                        <!-- Map Display -->
+                        <div id="map" class="location-map" style="display: none;"></div>
                     </div>
+                    
                     <div class="filter-group">
                         <label for="water-type">Water Type:</label>
                         <select id="water-type">
@@ -364,6 +518,62 @@
         </div>
     </footer>
 
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTopBtn" class="scroll-to-top" title="Go to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Booking Confirmation Modal -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2><i class="fas fa-check-circle"></i> Confirm Your Booking</h2>
+            
+            <div class="booking-summary">
+                <div class="summary-section">
+                    <h3><i class="fas fa-truck"></i> Selected Tanker</h3>
+                    <div class="summary-details">
+                        <p><strong>Vendor:</strong> <span id="modal-vendor"></span></p>
+                        <p><strong>Capacity:</strong> <span id="modal-capacity"></span> Liters</p>
+                        <p><strong>Size:</strong> <span id="modal-size"></span></p>
+                        <p><strong>Price:</strong> ₹<span id="modal-price"></span></p>
+                    </div>
+                </div>
+
+                <div class="summary-section">
+                    <h3><i class="fas fa-map-marker-alt"></i> Delivery Address</h3>
+                    <div class="summary-details" id="modal-address">
+                        <p>Please select your delivery address</p>
+                    </div>
+                </div>
+
+                <div class="summary-section">
+                    <h3><i class="fas fa-tint"></i> Water Type</h3>
+                    <div class="summary-details">
+                        <p id="modal-water-type">Not selected</p>
+                    </div>
+                </div>
+
+                <div class="summary-section total-section">
+                    <h3>Total Amount</h3>
+                    <div class="total-price">
+                        <span class="currency">₹</span>
+                        <span id="modal-total"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="closeBookingModal()">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+                <button class="btn-confirm" onclick="proceedToPayment()">
+                    <i class="fas fa-credit-card"></i> Proceed to Payment
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Check user authentication and access
         document.addEventListener('DOMContentLoaded', function() {
@@ -377,6 +587,26 @@
                 document.getElementById('userName').textContent = currentUser.name;
                 document.getElementById('welcomeName').textContent = currentUser.name;
             }
+
+            // Scroll to Top Button Functionality
+            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+            
+            // Show/hide button based on scroll position
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    scrollToTopBtn.classList.add('show');
+                } else {
+                    scrollToTopBtn.classList.remove('show');
+                }
+            });
+
+            // Scroll to top when clicked
+            scrollToTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
         });
     </script>
     <script src="buyer-dashboard.js"></script>
